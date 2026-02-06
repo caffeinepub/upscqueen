@@ -1,0 +1,64 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "UPSC Previous Year Question Papers section on landing page",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "summary": "Add a new unauthenticated landing-page section titled “UPSC Previous Year Question Papers” that matches the existing warm academic theme and layout styles.",
+      "acceptanceCriteria": [
+        "Landing page includes a clearly titled section: “UPSC Previous Year Question Papers”.",
+        "All user-facing text in the new section is in English.",
+        "The new section follows existing spacing/typography/card styles used elsewhere on the landing page."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/PreviousYearPapersSection.tsx",
+          "operation": "create",
+          "description": "Create a reusable landing-page section component that renders the “UPSC Previous Year Question Papers” header and description using the same container/spacing and card styling conventions as existing landing sections. Use shadcn-ui components (e.g., Card, Button) where appropriate to stay visually consistent. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Add the “UPSC Previous Year Question Papers” section to the landing page by rendering the new PreviousYearPapersSection component in the appropriate position among existing sections, ensuring it is visible without authentication and matches the existing warm academic palette and typography. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Within the new section, display a simple browsable (static) structure covering Prelims and Mains with labeled items and clear “View / Download” affordances that indicate “Coming soon” when no files exist.",
+      "acceptanceCriteria": [
+        "The section shows grouped entries for Prelims and Mains.",
+        "Each group contains multiple items (e.g., cards or list rows) with a clear label (e.g., “Prelims GS Paper I”, “CSAT”, “Mains GS I”).",
+        "Items have an obvious affordance for future paper access (e.g., a “View / Download” button or link); if no real files/links exist yet, the UI must clearly indicate “Coming soon” (or equivalent) rather than linking to a broken URL."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/PreviousYearPapersSection.tsx",
+          "operation": "modify",
+          "description": "Implement the static, browsable Prelims and Mains grouping (minimum items: Prelims GS Paper I, CSAT; Mains Essay, GS I–IV, and at least one Optional placeholder) using cards or list rows consistent with the landing page. Provide a clear non-broken affordance per item (e.g., a disabled Button labeled “Coming soon” or a non-clickable label), avoiding any broken links. Use shadcn-ui Button/Card for consistent affordances and states. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add an in-page navigation control near the top/hero area that scrolls/jumps to the “UPSC Previous Year Question Papers” section.",
+      "acceptanceCriteria": [
+        "A user can click a control near the top/hero area and be scrolled/jumped to the “UPSC Previous Year Question Papers” section.",
+        "The control label is in English and is understandable (e.g., “Previous Year Papers”)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Add a clearly labeled English control near the hero/top area (e.g., “Previous Year Papers”) that navigates to the new section via an in-page anchor/scroll target. Ensure the target section has a stable id and the control is visually consistent (e.g., shadcn-ui Button/link styling). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Enable smooth in-page scrolling behavior (e.g., via a global scroll-behavior rule) so the hero control scrolls to the papers section in a polished way, without changing the primary theme colors."
+        }
+      ]
+    }
+  ]
+}

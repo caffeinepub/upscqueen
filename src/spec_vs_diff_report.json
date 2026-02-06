@@ -1,0 +1,40 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T11:02:02.514Z",
+  "summary": "The diff implements the requested landing-page “UPSC Previous Year Question Papers” section with grouped Prelims/Mains items, “Coming soon”/disabled access affordances, and a hero-area button that scrolls to the section. It also includes additional unrequested styling/config changes and a placeholder hook file.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Added an empty placeholder React Query hooks file for future backend functionality.",
+      "reason": "BuildRequest does not ask for adding React Query hooks or placeholder files; it only requests a new landing-page section and in-page navigation.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Changed global theme/color palette variables (OKLCH) for light/dark mode and expanded chart color tokens.",
+      "reason": "BuildRequest only constrains theme to remain consistent and avoid blue+purple as primary; it does not request a palette refactor or chart token changes.",
+      "evidence": [
+        "frontend/src/index.css"
+      ]
+    },
+    {
+      "description": "Updated Tailwind configuration to add custom fonts (Inter, Merriweather) and adjust border radius.",
+      "reason": "BuildRequest does not request typography/font changes or Tailwind config updates; only the new papers section and navigation.",
+      "evidence": [
+        "frontend/tailwind.config.js",
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.78,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/components/PreviousYearPapersSection.tsx",
+    "frontend/src/index.css",
+    "frontend/src/pages/LandingPage.tsx",
+    "project_state.json"
+  ]
+}

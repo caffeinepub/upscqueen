@@ -1,0 +1,61 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-a-new-section-on-the-upscqueen-landing-page-for-upsc-previous-year-question-papers-that-is-visible-without-authentication-and-fits-the-existing-visual-theme",
+      "featureTitle": "Add a new section on the upscQueen landing page for “UPSC Previous Year Question Papers” that is visible without authentication and fits the existing visual theme.",
+      "files": [
+        "frontend/src/components/PreviousYearPapersSection.tsx",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-in-the-upsc-previous-year-question-papers-section-display-a-simple-browsable-structure-static-content-is-acceptable-that-covers-at-minimum-prelims-gs-paper-i-csat-and-mains-essay-gs-i-iv-at-least-one-optional-placeholder",
+      "featureTitle": "In the “UPSC Previous Year Question Papers” section, display a simple, browsable structure (static content is acceptable) that covers at minimum: Prelims (GS Paper I, CSAT) and Mains (Essay, GS I–IV, at least one Optional placeholder).",
+      "files": [
+        "frontend/src/components/PreviousYearPapersSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-in-page-navigation-affordance-from-the-top-of-the-landing-page-to-the-upsc-previous-year-question-papers-section-e-g-a-button-link-that-scrolls-to-the-section",
+      "featureTitle": "Add an in-page navigation affordance from the top of the landing page to the “UPSC Previous Year Question Papers” section (e.g., a button/link that scrolls to the section).",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

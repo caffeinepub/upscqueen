@@ -1,0 +1,18 @@
+{
+  "backend/main.mo": "Empty Motoko actor with no methods defined.",
+  "feature_evidence.json": "Feature evidence report listing implemented frontend files and components for UPSC papers section and navigation.",
+  "frontend-file-summaries.txt": "Prewritten summaries describing the purpose of major frontend components and configuration files.",
+  "frontend/index.css": "Tailwind base styles defining color variables, themes, and global element styling.",
+  "frontend/index.html": "Basic HTML entry point mounting the React app via main.tsx.",
+  "frontend/src/App.tsx": "Renders the LandingPage and global Toaster component.",
+  "frontend/src/components/PreviousYearPapersSection.tsx": "Displays categorized UPSC Prelims and Mains papers using cards with disabled download buttons.",
+  "frontend/src/components/ShareThisApp.tsx": "Share component allowing users to copy the current URL with feedback via toast notifications.",
+  "frontend/src/hooks/useActor.ts": "React hook that creates and manages an authenticated or anonymous backend actor using react-query.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Authentication context and provider managing Internet Identity login, state, and AuthClient setup.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder for future backend-related React Query hooks.",
+  "frontend/src/index.css": "Global Tailwind styles with warm academic palette, dark mode, and smooth scrolling.",
+  "frontend/src/main.tsx": "React entry point initializing QueryClient, InternetIdentityProvider, and rendering App.",
+  "frontend/src/pages/LandingPage.tsx": "React landing page with hero, features, branding, and a button that scrolls to the previous-year-papers section.",
+  "frontend/tailwind.config.js": "Tailwind configuration defining theme colors, typography, container settings, animations, and plugins.",
+  "project_state.json": "JSON describing project state, features implemented, requirements, and app-specific metadata for upscQueen."
+}

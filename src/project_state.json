@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "User wants a web app (not Play Store) and requests the deployment/shareable link; app name should be \"upscQueen\".",
+  "architectural_notes": [
+    "App will be a web app accessible via URL (not a Play Store Android APK).",
+    "User approved adding the provided logo asset into the app branding/UI."
+  ],
+  "known_issues": [
+    "Assistant previously failed to process the \"Logo\" request (error message shown) before proceeding later."
+  ],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-set-the-application-branding-to-use-the-name-upscqueen-across-the-ui-app-header-title-and-primary-landing-content-all-user-facing-text-must-be-in-english",
+      "title": "Set the application branding to use the name “upscQueen” across the UI (app header/title and primary landing content). All user-facing text must be in English.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-simple-mobile-first-landing-page-for-upscqueen-upsc-guidance-study-companion-with-at-least-a-hero-section-a-short-description-and-3-4-feature-cards-static-content-is-fine",
+      "title": "Create a simple, mobile-first landing page for “upscQueen” (UPSC guidance/study companion) with at least: a hero section, a short description, and 3–4 feature cards (static content is fine).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-share-this-app-section-that-shows-the-current-deployed-url-derived-from-the-browser-location-and-provides-a-one-click-copy-to-clipboard-button-with-clear-success-error-feedback",
+      "title": "Add a “Share this app” section that shows the current deployed URL (derived from the browser location) and provides a one-click copy-to-clipboard button with clear success/error feedback.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-visual-theme-colors-typography-spacing-and-components-suitable-for-an-exam-prep-education-brand-consistent-across-all-screens-do-not-use-a-blue-purple-theme",
+      "title": "Apply a coherent visual theme (colors, typography, spacing, and components) suitable for an exam-prep/education brand, consistent across all screens. Do not use a blue+purple theme.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-include-basic-static-brand-imagery-for-the-app-logo-hero-illustration-as-frontend-static-assets-and-render-them-on-the-landing-page",
+      "title": "Generate and include basic static brand imagery for the app (logo + hero illustration) as frontend static assets and render them on the landing page.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-user-uploaded-branding-images-to-the-frontend-as-static-assets-and-use-them-in-the-upscqueen-landing-page-in-place-of-the-current-generated-logo-hero-images",
+      "title": "Add the user-uploaded branding images to the frontend as static assets and use them in the upscQueen landing page in place of the current generated logo/hero images.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-section-on-the-upscqueen-landing-page-for-upsc-previous-year-question-papers-that-is-visible-without-authentication-and-fits-the-existing-visual-theme",
+      "title": "Add a new section on the upscQueen landing page for “UPSC Previous Year Question Papers” that is visible without authentication and fits the existing visual theme.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-upsc-previous-year-question-papers-section-display-a-simple-browsable-structure-static-content-is-acceptable-that-covers-at-minimum-prelims-gs-paper-i-csat-and-mains-essay-gs-i-iv-at-least-one-optional-placeholder",
+      "title": "In the “UPSC Previous Year Question Papers” section, display a simple, browsable structure (static content is acceptable) that covers at minimum: Prelims (GS Paper I, CSAT) and Mains (Essay, GS I–IV, at least one Optional placeholder).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-in-page-navigation-affordance-from-the-top-of-the-landing-page-to-the-upsc-previous-year-question-papers-section-e-g-a-button-link-that-scrolls-to-the-section",
+      "title": "Add an in-page navigation affordance from the top of the landing page to the “UPSC Previous Year Question Papers” section (e.g., a button/link that scrolls to the section).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create/deploy web app named \"upscQueen\" and provide shareable link (URL)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add the approved custom logo/DP branding asset into the upscQueen web app UI (replace/default logo)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add UPSC previous year/old question papers section/content inside the upscQueen web app",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "upscQueen",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

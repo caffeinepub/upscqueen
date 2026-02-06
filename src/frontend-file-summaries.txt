@@ -1,0 +1,9 @@
+{
+  "frontend/src/App.tsx": "Main application component that renders the LandingPage and includes the Toaster for notifications.",
+  "frontend/src/pages/LandingPage.tsx": "Complete landing page with header, hero section with scroll-to-papers button, four feature cards, the new Previous Year Papers section, share section, and footer with branding.",
+  "frontend/src/components/ShareThisApp.tsx": "Share component that displays the current URL with a copy-to-clipboard button, success/error feedback using toast notifications, and helpful instructions for users.",
+  "frontend/src/index.css": "Global styles with warm academic color palette (terracotta, gold, cream, charcoal) in OKLCH format for both light and dark modes, now including smooth scroll behavior for in-page navigation.",
+  "frontend/tailwind.config.js": "Tailwind configuration extended with custom fonts (Inter, Merriweather) and adjusted border radius for a distinctive academic aesthetic.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file for future React Query hooks when backend functionality is added.",
+  "frontend/src/components/PreviousYearPapersSection.tsx": "Reusable landing page section component displaying UPSC Previous Year Question Papers organized into Prelims and Mains categories with card-based layout, using shadcn-ui components and showing \"Coming Soon\" state for all papers."
+}
