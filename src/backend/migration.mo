@@ -2,79 +2,58 @@ import Map "mo:core/Map";
 import Nat "mo:core/Nat";
 
 module {
-  type ContentType = {
-    #VideoLecture;
-    #PdfBook;
-    #Music;
-    #Course;
-    #Book;
-    #Audio;
-  };
-
-  type StudyMaterial = {
-    id : Nat;
-    title : Text;
-    subject : Text;
-    contentType : ContentType;
-    url : Text;
-  };
-
   type OldActor = {
-    studyMaterialStore : Map.Map<Nat, StudyMaterial>;
+    studyMaterialStore : Map.Map<Nat, { id : Nat; title : Text; subject : Text; contentType : { #VideoLecture; #PdfBook; #Music; #Course; #Book; #Audio }; url : Text }>;
+    previousYearPaperStore : Map.Map<Nat, { id : Nat; year : Nat; subject : Text; examName : Text; url : Text }>;
+    dailyTestSeriesStore : Map.Map<Nat, { id : Nat; day : Nat; subject : Text; testName : Text; description : Text; questionsUrl : Text; answersUrl : Text; videoLectureUrl : Text }>;
     nextStudyMaterialId : Nat;
+    nextPreviousYearPaperId : Nat;
   };
 
   type NewActor = {
-    studyMaterialStore : Map.Map<Nat, StudyMaterial>;
+    studyMaterialStore : Map.Map<Nat, { id : Nat; title : Text; subject : Text; contentType : { #VideoLecture; #PdfBook; #Music; #Course; #Book; #Audio }; url : Text }>;
+    previousYearPaperStore : Map.Map<Nat, { id : Nat; year : Nat; subject : Text; examName : Text; url : Text }>;
+    dailyTestSeriesStore : Map.Map<Nat, { id : Nat; day : Nat; subject : Text; testName : Text; description : Text; questionsUrl : Text; answersUrl : Text; videoLectureUrl : Text }>;
     nextStudyMaterialId : Nat;
+    nextPreviousYearPaperId : Nat;
+    nextDailyPollutionEntryId : Nat;
+    dailyPollutionStore : Map.Map<Nat, { id : Nat; day : Nat; airQuality : Text; pollutionSource : Text; recommendations : Text }>;
   };
 
   public func run(old : OldActor) : NewActor {
-    let newStudyMaterials = [
-      {
-        id = old.nextStudyMaterialId;
-        title = "NCERT Mathematics Class 10";
-        subject = "Mathematics";
-        contentType = #PdfBook;
-        url = "https://drive.google.com/file/d/1Z6V.../view?usp=sharing";
-      },
-      {
-        id = old.nextStudyMaterialId + 1;
-        title = "NCERT Science Class 10";
-        subject = "Science";
-        contentType = #PdfBook;
-        url = "https://drive.google.com/file/d/1Y6X.../view?usp=sharing";
-      },
-      {
-        id = old.nextStudyMaterialId + 2;
-        title = "GCRT History Class 10";
-        subject = "History";
-        contentType = #PdfBook;
-        url = "https://drive.google.com/file/d/1X6W.../view?usp=sharing";
-      },
-      {
-        id = old.nextStudyMaterialId + 3;
-        title = "GCRT Geography Class 10";
-        subject = "Geography";
-        contentType = #PdfBook;
-        url = "https://drive.google.com/file/d/1W6V.../view?usp=sharing";
-      },
-      // Add more study materials as needed
+    let dailyPollutionEntries = [
+      (
+        0,
+        {
+          id = 0;
+          day = 1;
+          airQuality = "Moderate";
+          pollutionSource = "Vehicle emissions";
+          recommendations = "Wear masks, avoid outdoor activities during peak hours";
+        },
+      ),
+      (
+        1,
+        {
+          id = 1;
+          day = 2;
+          airQuality = "Unhealthy";
+          pollutionSource = "Industrial emissions";
+          recommendations = "Limit outdoor exercise, use air purifiers indoors";
+        },
+      ),
+      (
+        2,
+        {
+          id = 2;
+          day = 3;
+          airQuality = "Good";
+          pollutionSource = "Minimal sources";
+          recommendations = "No special precautions needed";
+        },
+      ),
     ];
 
-    let newStudyMaterialStore = Map.empty<Nat, StudyMaterial>();
-    for (material in newStudyMaterials.values()) {
-      newStudyMaterialStore.add(material.id, material);
-    };
-
-    let mergedStudyMaterialStore = old.studyMaterialStore.clone();
-    for (material in newStudyMaterialStore.values()) {
-      mergedStudyMaterialStore.add(material.id, material);
-    };
-
-    {
-      studyMaterialStore = mergedStudyMaterialStore;
-      nextStudyMaterialId = old.nextStudyMaterialId + newStudyMaterials.size();
-    };
+    { old with nextDailyPollutionEntryId = dailyPollutionEntries.size(); dailyPollutionStore = Map.fromIter(dailyPollutionEntries.values()) };
   };
 };

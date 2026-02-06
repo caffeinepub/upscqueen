@@ -1,37 +1,112 @@
 {
   "kind": "build_request",
-  "title": "Add NCERT and GCRT textbooks as in-app Study Material content",
+  "title": "Add Daily Pollution content (public browsing + admin management)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-25",
-      "text": "Seed the backend Study Material store with a starter set of NCERT textbooks and GCRT textbooks so they appear in the existing Study Material section without requiring any admin upload.",
-      "target": "both",
+      "id": "REQ-31",
+      "text": "Add a new backend content model and persistent store for “Daily Pollution” entries, where each entry is tied to a specific calendar day (using the existing numeric day-key approach) and can be listed publicly without authentication.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-5"
         ],
         "quotes": [
-          "NCERT તથા જીસીઆરટીના પાઠ્યપુસ્તક અંદર એડ કરો"
+          "દરરોજના પોલ્યુશન પણ એડ કરજો"
         ]
       },
       "acceptanceCriteria": [
-        "After deployment, opening the Landing Page and scrolling to the Study Material section shows at least one NCERT textbook item and at least one GCRT textbook item (as Study Material cards), without needing to log in.",
-        "NCERT textbook items are stored as Study Material entries in the backend with ContentType set to a book-like type (e.g., PdfBook/Book) and a non-empty title.",
-        "GCRT textbook items are stored as Study Material entries in the backend with ContentType set to a book-like type (e.g., PdfBook/Book) and a non-empty title.",
-        "Seed logic does not create duplicate entries on repeated canister starts within the same running deployment (e.g., only seeds when the store is empty).",
-        "All user-facing text in the UI remains in English."
+        "Backend defines a stable DailyPollutionEntry type with at least: id, day, title, description, optional sourceUrl (or equivalent URL field).",
+        "Backend persists DailyPollutionEntry items in a dedicated store (similar persistence approach to other content stores).",
+        "Backend exposes public query methods to list all pollution entries and to list pollution entries by day key.",
+        "Anonymous (unauthenticated) callers can successfully read pollution entries."
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "text": "Implement admin-only write operations for Daily Pollution entries in the backend, using the existing allowlist-based admin authorization rule used for other admin write operations.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "દરરોજના પોલ્યુશન પણ એડ કરજો"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes admin-guarded methods to create and delete Daily Pollution entries.",
+        "Non-admin callers attempting to create/delete Daily Pollution entries receive an Unauthorized error.",
+        "After successful create/delete, subsequent reads reflect the changes."
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "text": "Seed the Daily Pollution backend store with a small starter set of entries spanning multiple different days so the feature can be tested end-to-end immediately after deployment.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "દરરોજના પોલ્યુશન પણ એડ કરજો"
+        ]
+      },
+      "acceptanceCriteria": [
+        "At least 5 seeded Daily Pollution entries exist across at least 3 distinct day keys.",
+        "Seeded entries have meaningful English titles and descriptions and do not use placeholder-only text like 'test' or 'lorem ipsum'.",
+        "The public UI (REQ-34) shows seeded entries for the matching days without requiring login."
+      ]
+    },
+    {
+      "id": "REQ-34",
+      "text": "Add a new public landing-page section named “Daily Pollution” that lets users (including anonymous users) browse pollution entries by day (using the same day selector UX pattern as the existing Daily Test Series section), including loading, error, and empty states.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "દરરોજના પોલ્યુશન પણ એડ કરજો"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Landing page displays a “Daily Pollution” section with a day selector for recent days and a list of entries for the selected day.",
+        "Section shows a loading indicator while fetching, a clear error alert on failure, and a clear empty-state message when no entries exist for the selected day.",
+        "All user-facing text in this section is English.",
+        "Anonymous users can view the section and its contents."
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "text": "Extend the existing Admin Content Manager page to support creating and deleting Daily Pollution entries, using the same admin-guard behavior and UX patterns as existing content management tabs.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "દરરોજના પોલ્યુશન પણ એડ કરજો"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin Content Manager includes a new tab/mode for “Daily Pollution”.",
+        "Admins can add a pollution entry by selecting a date and providing required fields; successful submission clears the form and refreshes the list.",
+        "Admins can delete a pollution entry with a confirmation prompt; successful deletion refreshes the list.",
+        "Non-admin users cannot access the admin manager page functionality (existing AdminGuard behavior remains intact)."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor in backend/main.mo.",
-    "Do not edit any files under frontend/src/components/ui or other frontend immutablePaths listed in SYSTEM_CONTEXT.",
-    "Only Internet Identity is used for authentication; do not add third-party auth providers."
+    "Backend must remain a single Motoko actor with all logic in backend/main.mo.",
+    "Create backend/migration.mo changes only if required to preserve existing canister state (conditional migration policy).",
+    "Do not edit files under frontend/src/components/ui or any other paths listed in SYSTEM_CONTEXT.frontend.immutablePaths.",
+    "All user-facing text must be in English."
   ],
   "nonGoals": [
-    "Do not implement actual PDF hosting, file uploads, or an in-app PDF reader in this change (links can remain placeholders if real URLs are not provided).",
-    "Do not redesign the Study Material taxonomy (exam/language tabs) unless required to make seeded items visible."
+    "Do not add real-time pollution feeds, external API integrations, or geolocation-based pollution data.",
+    "Do not implement notifications or push alerts for daily pollution updates.",
+    "Do not change existing Study Material, Previous Year Papers, Current Affairs, or Daily Test Series behaviors except as needed to integrate the new section/tab."
   ],
   "imageRequirements": {
     "required": [],

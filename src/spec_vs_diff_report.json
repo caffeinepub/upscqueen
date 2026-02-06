@@ -1,25 +1,87 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T12:03:02.878Z",
-  "summary": "REQ-25 is partially implemented: the diff adds seeded NCERT and GCRT Study Material entries with book-like contentType and non-empty titles, and updates the frontend Study Material section to surface “textbook” items. However, the seeding logic shown does not demonstrate an “only seed when store is empty / no duplicates on repeated starts” guard.",
+  "generatedAt": "2026-02-06T12:49:32.735Z",
+  "summary": "Daily Pollution was added across backend and frontend, including a new landing-page section and an admin-manager tab/hooks. However, several key spec details are missing or diverge from the requested content model and seeding criteria, and the backend day-key/data model appears mismatched to the requested fields (title/description/sourceUrl) and day-key approach.",
   "missing_requirements": [
     {
-      "id": "REQ-25",
-      "requirement": "Seed logic does not create duplicate entries on repeated canister starts within the same running deployment (e.g., only seeds when the store is empty).",
-      "reason": "The added migration code unconditionally appends a fixed list of materials (using old.nextStudyMaterialId + offsets) and merges them into the existing store, with no check that the store is empty and no deduplication by title/url.",
+      "id": "REQ-31",
+      "requirement": "Backend defines a stable DailyPollutionEntry type with at least: id, day, title, description, optional sourceUrl (or equivalent URL field).",
+      "reason": "The diff shows DailyPollutionEntry fields as airQuality/pollutionSource/recommendations instead of title/description/sourceUrl.",
       "evidence": [
+        "backend/main.mo",
         "backend/migration.mo"
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "requirement": "Backend persists DailyPollutionEntry items in a dedicated store tied to a specific calendar day using the existing numeric day-key approach, and exposes public query methods to list all entries and list by day key.",
+      "reason": "While a dailyPollutionStore is present, the diff does not show any public query methods for listing all pollution entries or filtering by day key, and the seeded 'day' values are small Nats (1,2,3) rather than evidence of the existing day-key approach used by the frontend utilities (bigint day keys).",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/DailyPollutionSection.tsx"
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "requirement": "Backend exposes admin-guarded methods to create and delete Daily Pollution entries using the existing allowlist-based admin authorization rule, returning Unauthorized for non-admin callers.",
+      "reason": "The frontend introduces hooks and admin UI for add/delete, but the diff of backend/main.mo is truncated and does not show the actual admin-only create/delete methods or their authorization checks/errors.",
+      "evidence": [
+        "frontend/src/pages/AdminContentManagerPage.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "requirement": "Seed the Daily Pollution store with at least 5 meaningful English entries across at least 3 distinct day keys.",
+      "reason": "Only 3 seeded entries are shown (ids 0–2) across days 1–3, which does not meet the minimum of 5 entries.",
+      "evidence": [
+        "backend/main.mo",
+        "backend/migration.mo"
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "requirement": "Seeded entries should be visible end-to-end in the public UI for matching days immediately after deployment (without login).",
+      "reason": "Because the backend 'day' values shown are 1/2/3 (Nat) while the landing page selector uses bigint day keys from getTodayDayKey()/getRecentDayKeys(), the seeded entries likely will not match the selected day keys, preventing end-to-end visibility as requested.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/DailyPollutionSection.tsx",
+        "frontend/src/utils/dayKey.ts"
       ]
     }
   ],
-  "hallucinated_features": [],
-  "confidence": 0.72,
+  "hallucinated_features": [
+    {
+      "description": "Daily Pollution data model uses airQuality/pollutionSource/recommendations fields instead of the requested title/description/sourceUrl content model.",
+      "reason": "This is a functional/data-model deviation that adds unrequested fields and omits requested ones.",
+      "evidence": [
+        "backend/main.mo",
+        "backend/migration.mo",
+        "frontend/src/components/DailyPollutionSection.tsx",
+        "frontend/src/pages/AdminContentManagerPage.tsx"
+      ]
+    },
+    {
+      "description": "Unrequested global UI/theme behavior changes (e.g., smooth scroll behavior and Tailwind theme adjustments).",
+      "reason": "These changes are described in the diff summary but are not part of REQ-31..REQ-35 and may violate the constraint to avoid changing unrelated behaviors except as needed to integrate the new section/tab.",
+      "evidence": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js",
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.66,
   "changed_files": [
     "backend/main.mo",
     "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/StudyMaterialSection.tsx",
+    "frontend/src/components/DailyPollutionSection.tsx",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/AdminContentManagerPage.tsx",
+    "frontend/src/pages/LandingPage.tsx",
     "project_state.json"
   ]
 }

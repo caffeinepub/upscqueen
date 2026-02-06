@@ -96,8 +96,12 @@ export interface PreviousYearPaper {
     year: bigint;
     examName: string;
 }
-export interface UserProfile {
-    name: string;
+export interface DailyPollutionEntry {
+    id: bigint;
+    day: bigint;
+    recommendations: string;
+    pollutionSource: string;
+    airQuality: string;
 }
 export interface StudyMaterial {
     id: bigint;
@@ -105,6 +109,19 @@ export interface StudyMaterial {
     title: string;
     subject: string;
     contentType: ContentType;
+}
+export interface DailyTestSeriesEntry {
+    id: bigint;
+    day: bigint;
+    subject: string;
+    testName: string;
+    description: string;
+    questionsUrl: string;
+    videoLectureUrl: string;
+    answersUrl: string;
+}
+export interface UserProfile {
+    name: string;
 }
 export enum ContentType {
     Course = "Course",
@@ -121,15 +138,22 @@ export enum UserRole {
 }
 export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
+    addDailyPollutionEntry(day: bigint, airQuality: string, pollutionSource: string, recommendations: string): Promise<bigint>;
     addPreviousYearPaper(year: bigint, subject: string, examName: string, url: string): Promise<bigint>;
     addStudyMaterial(title: string, subject: string, contentType: ContentType, url: string): Promise<bigint>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    deleteDailyPollutionEntry(id: bigint): Promise<void>;
     deletePreviousYearPaper(id: bigint): Promise<void>;
     deleteStudyMaterial(id: bigint): Promise<void>;
+    getAllDailyPollutionEntries(): Promise<Array<DailyPollutionEntry>>;
+    getAllDailyTestSeries(): Promise<Array<DailyTestSeriesEntry>>;
     getAllPreviousYearPapers(): Promise<Array<PreviousYearPaper>>;
     getAllStudyMaterials(): Promise<Array<StudyMaterial>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getDailyPollutionByDay(day: bigint): Promise<Array<DailyPollutionEntry>>;
+    getDailyTestSeriesByDay(day: bigint): Promise<Array<DailyTestSeriesEntry>>;
+    getDailyTestSeriesBySubject(subject: string): Promise<Array<DailyTestSeriesEntry>>;
     getPreviousYearPaperById(id: bigint): Promise<PreviousYearPaper | null>;
     getPreviousYearPapersByExam(examName: string): Promise<Array<PreviousYearPaper>>;
     getPreviousYearPapersBySubject(subject: string): Promise<Array<PreviousYearPaper>>;
@@ -154,6 +178,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor._initializeAccessControlWithSecret(arg0);
+            return result;
+        }
+    }
+    async addDailyPollutionEntry(arg0: bigint, arg1: string, arg2: string, arg3: string): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addDailyPollutionEntry(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addDailyPollutionEntry(arg0, arg1, arg2, arg3);
             return result;
         }
     }
@@ -199,6 +237,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async deleteDailyPollutionEntry(arg0: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteDailyPollutionEntry(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteDailyPollutionEntry(arg0);
+            return result;
+        }
+    }
     async deletePreviousYearPaper(arg0: bigint): Promise<void> {
         if (this.processError) {
             try {
@@ -224,6 +276,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.deleteStudyMaterial(arg0);
+            return result;
+        }
+    }
+    async getAllDailyPollutionEntries(): Promise<Array<DailyPollutionEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllDailyPollutionEntries();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllDailyPollutionEntries();
+            return result;
+        }
+    }
+    async getAllDailyTestSeries(): Promise<Array<DailyTestSeriesEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllDailyTestSeries();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllDailyTestSeries();
             return result;
         }
     }
@@ -281,6 +361,48 @@ export class Backend implements backendInterface {
         } else {
             const result = await this.actor.getCallerUserRole();
             return from_candid_UserRole_n11(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getDailyPollutionByDay(arg0: bigint): Promise<Array<DailyPollutionEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDailyPollutionByDay(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDailyPollutionByDay(arg0);
+            return result;
+        }
+    }
+    async getDailyTestSeriesByDay(arg0: bigint): Promise<Array<DailyTestSeriesEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDailyTestSeriesByDay(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDailyTestSeriesByDay(arg0);
+            return result;
+        }
+    }
+    async getDailyTestSeriesBySubject(arg0: string): Promise<Array<DailyTestSeriesEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDailyTestSeriesBySubject(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDailyTestSeriesBySubject(arg0);
+            return result;
         }
     }
     async getPreviousYearPaperById(arg0: bigint): Promise<PreviousYearPaper | null> {

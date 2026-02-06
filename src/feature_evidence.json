@@ -2,10 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-seed-the-backend-study-material-store-with-a-starter-set-of-ncert-textbooks-and-gcrt-textbooks-so-they-appear-in-the-existing-study-material-section-without-requiring-any-admin-upload",
-      "featureTitle": "Seed the backend Study Material store with a starter set of NCERT textbooks and GCRT textbooks so they appear in the existing Study Material section without requiring any admin upload.",
+      "featureId": "feature-add-a-new-public-landing-page-section-named-daily-pollution-that-lets-users-including-anonymous-users-browse-pollution-entries-by-day-using-the-same-day-selector-ux-pattern-as-the-existing-daily-test-series-section-including-loading-error-and-empty-states",
+      "featureTitle": "Add a new public landing-page section named “Daily Pollution” that lets users (including anonymous users) browse pollution entries by day (using the same day selector UX pattern as the existing Daily Test Series section), including loading, error, and empty states.",
       "files": [
-        "frontend/src/components/StudyMaterialSection.tsx"
+        "frontend/src/components/DailyPollutionSection.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/LandingPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -16,7 +18,27 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-25"
+        "REQ-34"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-extend-the-existing-admin-content-manager-page-to-support-creating-and-deleting-daily-pollution-entries-using-the-same-admin-guard-behavior-and-ux-patterns-as-existing-content-management-tabs",
+      "featureTitle": "Extend the existing Admin Content Manager page to support creating and deleting Daily Pollution entries, using the same admin-guard behavior and UX patterns as existing content management tabs.",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/AdminContentManagerPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-35"
       ],
       "confidence": "high"
     }

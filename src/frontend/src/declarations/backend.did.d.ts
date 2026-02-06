@@ -16,6 +16,23 @@ export type ContentType = { 'Course' : null } |
   { 'Music' : null } |
   { 'Audio' : null } |
   { 'PdfBook' : null };
+export interface DailyPollutionEntry {
+  'id' : bigint,
+  'day' : bigint,
+  'recommendations' : string,
+  'pollutionSource' : string,
+  'airQuality' : string,
+}
+export interface DailyTestSeriesEntry {
+  'id' : bigint,
+  'day' : bigint,
+  'subject' : string,
+  'testName' : string,
+  'description' : string,
+  'questionsUrl' : string,
+  'videoLectureUrl' : string,
+  'answersUrl' : string,
+}
 export interface PreviousYearPaper {
   'id' : bigint,
   'url' : string,
@@ -36,6 +53,10 @@ export type UserRole = { 'admin' : null } |
   { 'guest' : null };
 export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addDailyPollutionEntry' : ActorMethod<
+    [bigint, string, string, string],
+    bigint
+  >,
   'addPreviousYearPaper' : ActorMethod<
     [bigint, string, string, string],
     bigint
@@ -45,12 +66,24 @@ export interface _SERVICE {
     bigint
   >,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'deleteDailyPollutionEntry' : ActorMethod<[bigint], undefined>,
   'deletePreviousYearPaper' : ActorMethod<[bigint], undefined>,
   'deleteStudyMaterial' : ActorMethod<[bigint], undefined>,
+  'getAllDailyPollutionEntries' : ActorMethod<[], Array<DailyPollutionEntry>>,
+  'getAllDailyTestSeries' : ActorMethod<[], Array<DailyTestSeriesEntry>>,
   'getAllPreviousYearPapers' : ActorMethod<[], Array<PreviousYearPaper>>,
   'getAllStudyMaterials' : ActorMethod<[], Array<StudyMaterial>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getDailyPollutionByDay' : ActorMethod<[bigint], Array<DailyPollutionEntry>>,
+  'getDailyTestSeriesByDay' : ActorMethod<
+    [bigint],
+    Array<DailyTestSeriesEntry>
+  >,
+  'getDailyTestSeriesBySubject' : ActorMethod<
+    [string],
+    Array<DailyTestSeriesEntry>
+  >,
   'getPreviousYearPaperById' : ActorMethod<[bigint], [] | [PreviousYearPaper]>,
   'getPreviousYearPapersByExam' : ActorMethod<
     [string],

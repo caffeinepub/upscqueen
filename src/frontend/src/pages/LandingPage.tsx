@@ -5,6 +5,8 @@ import ShareThisApp from '@/components/ShareThisApp';
 import PreviousYearPapersSection from '@/components/PreviousYearPapersSection';
 import CurrentAffairsSection from '@/components/CurrentAffairsSection';
 import StudyMaterialSection from '@/components/StudyMaterialSection';
+import DailyTestSeriesSection from '@/components/DailyTestSeriesSection';
+import DailyPollutionSection from '@/components/DailyPollutionSection';
 import LoginButton from '@/components/LoginButton';
 
 export default function LandingPage() {
@@ -161,6 +163,12 @@ export default function LandingPage() {
 
       {/* Current Affairs Section */}
       <CurrentAffairsSection />
+
+      {/* Daily Test Series Section */}
+      <DailyTestSeriesSection />
+
+      {/* Daily Pollution Section */}
+      <DailyPollutionSection />
 
       {/* Study Material Section */}
       <StudyMaterialSection />

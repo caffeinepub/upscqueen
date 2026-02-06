@@ -35,6 +35,17 @@ actor {
     url : Text;
   };
 
+  type DailyTestSeriesEntry = {
+    id : Nat;
+    day : Nat;
+    subject : Text;
+    testName : Text;
+    description : Text;
+    questionsUrl : Text;
+    answersUrl : Text;
+    videoLectureUrl : Text;
+  };
+
   type ContentType = {
     #VideoLecture;
     #PdfBook;
@@ -44,10 +55,53 @@ actor {
     #Audio;
   };
 
+  public type DailyPollutionEntry = {
+    id : Nat;
+    day : Nat;
+    airQuality : Text;
+    pollutionSource : Text;
+    recommendations : Text;
+  };
+
   let studyMaterialStore = Map.empty<Nat, StudyMaterial>();
   let previousYearPaperStore = Map.empty<Nat, PreviousYearPaper>();
+  let dailyTestSeriesStore = Map.empty<Nat, DailyTestSeriesEntry>();
   var nextStudyMaterialId = 0;
   var nextPreviousYearPaperId = 0;
+  var nextDailyPollutionEntryId = 0;
+
+  let dailyPollutionStore = Map.fromIter<Nat, DailyPollutionEntry>([
+    (
+      0,
+      {
+        id = 0;
+        day = 1;
+        airQuality = "Moderate";
+        pollutionSource = "Vehicle emissions";
+        recommendations = "Wear masks, avoid outdoor activities during peak hours";
+      },
+    ),
+    (
+      1,
+      {
+        id = 1;
+        day = 2;
+        airQuality = "Unhealthy";
+        pollutionSource = "Industrial emissions";
+        recommendations = "Limit outdoor exercise, use air purifiers indoors";
+      },
+    ),
+    (
+      2,
+      {
+        id = 2;
+        day = 3;
+        airQuality = "Good";
+        pollutionSource = "Minimal sources";
+        recommendations = "No special precautions needed";
+      },
+    ),
+  ].values());
 
   // -- User Profile Management --
 
@@ -168,5 +222,64 @@ actor {
       Runtime.trap("Unauthorized: Only admins can delete previous year papers");
     };
     previousYearPaperStore.remove(id);
+  };
+
+  // -- Daily Test Series Management --
+
+  public query ({ caller }) func getAllDailyTestSeries() : async [DailyTestSeriesEntry] {
+    dailyTestSeriesStore.values().toArray();
+  };
+
+  public query ({ caller }) func getDailyTestSeriesByDay(day : Nat) : async [DailyTestSeriesEntry] {
+    dailyTestSeriesStore.values().toArray().filter(
+      func(entry) {
+        entry.day == day;
+      }
+    );
+  };
+
+  public query ({ caller }) func getDailyTestSeriesBySubject(subject : Text) : async [DailyTestSeriesEntry] {
+    dailyTestSeriesStore.values().toArray().filter(
+      func(entry) {
+        entry.subject == subject;
+      }
+    );
+  };
+
+  // -- Daily Pollution Management --
+
+  public query func getAllDailyPollutionEntries() : async [DailyPollutionEntry] {
+    dailyPollutionStore.values().toArray();
+  };
+
+  public query func getDailyPollutionByDay(day : Nat) : async [DailyPollutionEntry] {
+    dailyPollutionStore.values().toArray().filter(
+      func(entry) {
+        entry.day == day;
+      }
+    );
+  };
+
+  public shared ({ caller }) func addDailyPollutionEntry(day : Nat, airQuality : Text, pollutionSource : Text, recommendations : Text) : async Nat {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can add pollution entries");
+    };
+    let newEntry : DailyPollutionEntry = {
+      id = nextDailyPollutionEntryId;
+      day;
+      airQuality;
+      pollutionSource;
+      recommendations;
+    };
+    dailyPollutionStore.add(nextDailyPollutionEntryId, newEntry);
+    nextDailyPollutionEntryId += 1;
+    newEntry.id;
+  };
+
+  public shared ({ caller }) func deleteDailyPollutionEntry(id : Nat) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can delete pollution entries");
+    };
+    dailyPollutionStore.remove(id);
   };
 };

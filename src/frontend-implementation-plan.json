@@ -1,33 +1,54 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Surface seeded NCERT/GCRT textbooks in Study Material section",
+  "title": "Daily Pollution (public section + admin tab) — frontend integration",
   "requirements": [
     {
-      "id": "REQ-25",
-      "summary": "Ensure the Landing Page Study Material section visibly lists seeded NCERT and GCRT textbook Study Material items (book-like content types) without requiring login, even if their backend subject taxonomy differs from current UI filters.",
+      "id": "REQ-34",
+      "summary": "Add a public “Daily Pollution” landing-page section with a day selector matching Daily Test Series UX and clear loading/error/empty states.",
       "acceptanceCriteria": [
-        "After deployment, opening the Landing Page and scrolling to the Study Material section shows at least one NCERT textbook item and at least one GCRT textbook item (as Study Material cards), without needing to log in.",
-        "NCERT textbook items are stored as Study Material entries in the backend with ContentType set to a book-like type (e.g., PdfBook/Book) and a non-empty title.",
-        "GCRT textbook items are stored as Study Material entries in the backend with ContentType set to a book-like type (e.g., PdfBook/Book) and a non-empty title.",
-        "Seed logic does not create duplicate entries on repeated canister starts within the same running deployment (e.g., only seeds when the store is empty).",
-        "All user-facing text in the UI remains in English."
+        "Landing page displays a “Daily Pollution” section with a day selector for recent days and a list of entries for the selected day.",
+        "Section shows a loading indicator while fetching, a clear error alert on failure, and a clear empty-state message when no entries exist for the selected day.",
+        "All user-facing text in this section is English.",
+        "Anonymous users can view the section and its contents."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/StudyMaterialSection.tsx",
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Update the Study Material UI to include a small 'Featured Textbooks' (or equivalent) subsection that always renders when study materials are available, prioritizing items whose titles indicate NCERT and GCRT and whose contentType is Book/PdfBook; keep all user-facing text in English and avoid changing any files under frontend/src/components/ui. Verify the component's usage instructions before implementing."
+          "description": "Add React Query hooks for public Daily Pollution reads (e.g., fetch by day and/or fetch all), using the backend actor methods already available. Ensure query keys are stable and the hooks work for anonymous users. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/components/StudyMaterialSection.tsx",
-          "operation": "modify",
-          "description": "Add a graceful fallback when the current exam/language filter yields zero results: still provide a way to display book-like Study Material items (Book/PdfBook) from the fetched list so seeded textbooks remain visible without taxonomy redesign; include an external-link style action only when item.url is non-empty (no in-app PDF reader). Verify the component's usage instructions before implementing."
+          "path": "frontend/src/components/DailyPollutionSection.tsx",
+          "operation": "create",
+          "description": "Create a new public landing-page section component that mirrors the existing Daily Test Series day-selector UX pattern using shadcn-ui primitives (e.g., Button, Card, Alert) and shows pollution entries for the selected day with loading/error/empty states. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "modify",
-          "description": "Confirm the Landing Page continues to render the StudyMaterialSection in the main public flow and that navigation/scroll access to the Study Material section remains intact for anonymous users; keep all visible text in English. Verify the component's usage instructions before implementing."
+          "description": "Wire the new DailyPollutionSection into the landing page as a new section named “Daily Pollution”, keeping all displayed strings in English and ensuring it is accessible to anonymous users. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "summary": "Extend Admin Content Manager to add a “Daily Pollution” mode for creating and deleting entries using existing admin guard behavior and UX patterns.",
+      "acceptanceCriteria": [
+        "Admin Content Manager includes a new tab/mode for “Daily Pollution”.",
+        "Admins can add a pollution entry by selecting a date and providing required fields; successful submission clears the form and refreshes the list.",
+        "Admins can delete a pollution entry with a confirmation prompt; successful deletion refreshes the list.",
+        "Non-admin users cannot access the admin manager page functionality (existing AdminGuard behavior remains intact)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add React Query mutations for admin Daily Pollution create/delete and admin list queries for the manager view, with appropriate cache invalidation and user-friendly Unauthorized error messages. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/AdminContentManagerPage.tsx",
+          "operation": "modify",
+          "description": "Add a new Admin Content Manager tab/mode for “Daily Pollution”, including a date selector (HTML date input) and required fields (air quality, pollution source, recommendations), plus a list view with delete actions and confirmation prompt. Reuse existing AdminGuard protection and shadcn-ui form/layout patterns already used in this page. Verify the component's usage instructions before implementing."
         }
       ]
     }

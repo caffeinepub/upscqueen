@@ -1,11 +1,14 @@
 # Specification
 
 ## Summary
-**Goal:** Populate the existing Study Material section with a starter set of NCERT and GCRT textbook entries without requiring any admin upload.
+**Goal:** Add a new “Daily Pollution” content feature that can be publicly browsed by day and managed by admins.
 
 **Planned changes:**
-- Add backend seed data for Study Material including at least one NCERT textbook item and at least one GCRT textbook item, using a book-like content type and non-empty titles.
-- Ensure seeding runs only when the Study Material store is empty to avoid duplicates on repeated canister starts within the same deployment.
-- Keep all user-facing UI text in English while making the seeded items visible in the existing Study Material section (without login).
+- Create a new backend content model and persistent store for Daily Pollution entries keyed by numeric day, including fields: id, day, title, description, optional sourceUrl.
+- Expose public (unauthenticated) backend read methods to list all Daily Pollution entries and list entries by day key.
+- Add admin-only backend methods (allowlist-based) to create and delete Daily Pollution entries.
+- Seed the Daily Pollution store with a small starter dataset (at least 5 entries across at least 3 different day keys).
+- Add a new “Daily Pollution” section on the public landing page with a day selector (matching the existing Daily Test Series day-selector pattern) plus loading, error, and empty states.
+- Extend the Admin Content Manager with a “Daily Pollution” tab to create entries (select date + required fields) and delete entries (with confirmation), following existing admin-guard and UX patterns.
 
-**User-visible outcome:** Visitors (not logged in) can open the Landing Page, scroll to Study Material, and see Study Material cards for at least one NCERT textbook and at least one GCRT textbook immediately after deployment.
+**User-visible outcome:** Visitors (including anonymous users) can browse Daily Pollution entries by day on the landing page, and admins can add/delete Daily Pollution entries from the Admin Content Manager.

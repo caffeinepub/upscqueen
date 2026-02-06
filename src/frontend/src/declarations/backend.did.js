@@ -21,6 +21,23 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
+export const DailyPollutionEntry = IDL.Record({
+  'id' : IDL.Nat,
+  'day' : IDL.Nat,
+  'recommendations' : IDL.Text,
+  'pollutionSource' : IDL.Text,
+  'airQuality' : IDL.Text,
+});
+export const DailyTestSeriesEntry = IDL.Record({
+  'id' : IDL.Nat,
+  'day' : IDL.Nat,
+  'subject' : IDL.Text,
+  'testName' : IDL.Text,
+  'description' : IDL.Text,
+  'questionsUrl' : IDL.Text,
+  'videoLectureUrl' : IDL.Text,
+  'answersUrl' : IDL.Text,
+});
 export const PreviousYearPaper = IDL.Record({
   'id' : IDL.Nat,
   'url' : IDL.Text,
@@ -39,6 +56,11 @@ export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addDailyPollutionEntry' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Nat],
+      [],
+    ),
   'addPreviousYearPaper' : IDL.Func(
       [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
       [IDL.Nat],
@@ -50,8 +72,19 @@ export const idlService = IDL.Service({
       [],
     ),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'deleteDailyPollutionEntry' : IDL.Func([IDL.Nat], [], []),
   'deletePreviousYearPaper' : IDL.Func([IDL.Nat], [], []),
   'deleteStudyMaterial' : IDL.Func([IDL.Nat], [], []),
+  'getAllDailyPollutionEntries' : IDL.Func(
+      [],
+      [IDL.Vec(DailyPollutionEntry)],
+      ['query'],
+    ),
+  'getAllDailyTestSeries' : IDL.Func(
+      [],
+      [IDL.Vec(DailyTestSeriesEntry)],
+      ['query'],
+    ),
   'getAllPreviousYearPapers' : IDL.Func(
       [],
       [IDL.Vec(PreviousYearPaper)],
@@ -60,6 +93,21 @@ export const idlService = IDL.Service({
   'getAllStudyMaterials' : IDL.Func([], [IDL.Vec(StudyMaterial)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getDailyPollutionByDay' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Vec(DailyPollutionEntry)],
+      ['query'],
+    ),
+  'getDailyTestSeriesByDay' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Vec(DailyTestSeriesEntry)],
+      ['query'],
+    ),
+  'getDailyTestSeriesBySubject' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(DailyTestSeriesEntry)],
+      ['query'],
+    ),
   'getPreviousYearPaperById' : IDL.Func(
       [IDL.Nat],
       [IDL.Opt(PreviousYearPaper)],
@@ -115,6 +163,23 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
+  const DailyPollutionEntry = IDL.Record({
+    'id' : IDL.Nat,
+    'day' : IDL.Nat,
+    'recommendations' : IDL.Text,
+    'pollutionSource' : IDL.Text,
+    'airQuality' : IDL.Text,
+  });
+  const DailyTestSeriesEntry = IDL.Record({
+    'id' : IDL.Nat,
+    'day' : IDL.Nat,
+    'subject' : IDL.Text,
+    'testName' : IDL.Text,
+    'description' : IDL.Text,
+    'questionsUrl' : IDL.Text,
+    'videoLectureUrl' : IDL.Text,
+    'answersUrl' : IDL.Text,
+  });
   const PreviousYearPaper = IDL.Record({
     'id' : IDL.Nat,
     'url' : IDL.Text,
@@ -133,6 +198,11 @@ export const idlFactory = ({ IDL }) => {
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addDailyPollutionEntry' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Nat],
+        [],
+      ),
     'addPreviousYearPaper' : IDL.Func(
         [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
         [IDL.Nat],
@@ -144,8 +214,19 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'deleteDailyPollutionEntry' : IDL.Func([IDL.Nat], [], []),
     'deletePreviousYearPaper' : IDL.Func([IDL.Nat], [], []),
     'deleteStudyMaterial' : IDL.Func([IDL.Nat], [], []),
+    'getAllDailyPollutionEntries' : IDL.Func(
+        [],
+        [IDL.Vec(DailyPollutionEntry)],
+        ['query'],
+      ),
+    'getAllDailyTestSeries' : IDL.Func(
+        [],
+        [IDL.Vec(DailyTestSeriesEntry)],
+        ['query'],
+      ),
     'getAllPreviousYearPapers' : IDL.Func(
         [],
         [IDL.Vec(PreviousYearPaper)],
@@ -154,6 +235,21 @@ export const idlFactory = ({ IDL }) => {
     'getAllStudyMaterials' : IDL.Func([], [IDL.Vec(StudyMaterial)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getDailyPollutionByDay' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Vec(DailyPollutionEntry)],
+        ['query'],
+      ),
+    'getDailyTestSeriesByDay' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Vec(DailyTestSeriesEntry)],
+        ['query'],
+      ),
+    'getDailyTestSeriesBySubject' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(DailyTestSeriesEntry)],
+        ['query'],
+      ),
     'getPreviousYearPaperById' : IDL.Func(
         [IDL.Nat],
         [IDL.Opt(PreviousYearPaper)],

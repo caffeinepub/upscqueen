@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
-  "summary": "User wants a web app (not Play Store) and requests the deployment/shareable link; app name should be \"upscQueen\". Scope expanded to include a Current Affairs section organized by daily/weekly/monthly/yearly with content available in Gujarati, Hindi, and English, and to add a Study Material section for TAT, TET, UPSC, GPSC, and Class 3 exams with content in Gujarati, Hindi, and English, including old/previous-year papers for those exams. User additionally requested adding specific Study Material content: TAT \"Yuva Upnishad\" material, plus NCERT and GCRT textbooks inside the app.",
+  "projectStateVersion": 21,
+  "summary": "User wants a web app (not Play Store) and requests the deployment/shareable link; app name should be \"upscQueen\". Scope expanded to include a Current Affairs section organized by daily/weekly/monthly/yearly with content available in Gujarati, Hindi, and English; a Study Material section for TAT, TET, UPSC, GPSC, and Class 3 exams with content in Gujarati, Hindi, and English, including old/previous-year papers; and an additional Daily subject-wise Test Series feature (different subjects each day). User additionally requested adding specific Study Material content: TAT \"Yuva Upnishad\" material, plus NCERT and GCRT textbooks inside the app.",
   "architectural_notes": [
     "App will be a web app accessible via URL (not a Play Store Android APK).",
     "User approved adding the provided logo asset into the app branding/UI.",
@@ -9,7 +9,8 @@
     "Add a Study Material section with exam-category browsing (TAT, TET, UPSC, GPSC, Class 3) and multilingual content support (Gujarati/Hindi/English).",
     "Include an 'Old Papers' (previous-year papers) area under Study Material for each exam category (TAT/TET/UPSC/GPSC/Class 3).",
     "User expects Old Papers and all promised Study Material to be uploaded/populated in the app (not just static sample/demo entries).",
-    "Support adding additional specific materials/textbooks (e.g., NCERT, GCRT, and specific TAT topics like \"Yuva Upnishad\") via the content upload/admin workflow so they are readable in-app."
+    "Support adding additional specific materials/textbooks (e.g., NCERT, GCRT, and specific TAT topics like \"Yuva Upnishad\") via the content upload/admin workflow so they are readable in-app.",
+    "Add a 'Daily Test Series' section (subject-wise) with day-based browsing/scheduling, consistent with the existing exam-prep theme and content model."
   ],
   "known_issues": [
     "Assistant previously failed to process the \"Logo\" request (error message shown) before proceeding later.",
@@ -208,6 +209,46 @@
         "REQ-25"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-create-a-new-public-landing-page-section-named-daily-test-series-that-allows-users-including-anonymous-users-to-browse-tests-by-day-and-see-the-subject-wise-tests-available-for-the-selected-day",
+      "title": "Create a new public landing-page section named \"Daily Test Series\" that allows users (including anonymous users) to browse tests by day and see the subject-wise tests available for the selected day.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-new-daily-test-series-landing-page-section-to-load-its-data-from-the-backend-using-the-existing-actor-react-query-patterns-including-loading-and-error-states",
+      "title": "Wire the new \"Daily Test Series\" landing-page section to load its data from the backend using the existing actor + React Query patterns, including loading and error states.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-existing-admin-only-content-manager-ui-to-support-creating-and-deleting-daily-test-series-entries-using-the-same-admin-guard-behavior-and-ux-patterns-as-existing-study-material-previous-year-papers-management",
+      "title": "Extend the existing admin-only content manager UI to support creating and deleting Daily Test Series entries, using the same admin guard behavior and UX patterns as existing Study Material / Previous Year Papers management.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-public-landing-page-section-named-daily-pollution-that-lets-users-including-anonymous-users-browse-pollution-entries-by-day-using-the-same-day-selector-ux-pattern-as-the-existing-daily-test-series-section-including-loading-error-and-empty-states",
+      "title": "Add a new public landing-page section named “Daily Pollution” that lets users (including anonymous users) browse pollution entries by day (using the same day selector UX pattern as the existing Daily Test Series section), including loading, error, and empty states.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-existing-admin-content-manager-page-to-support-creating-and-deleting-daily-pollution-entries-using-the-same-admin-guard-behavior-and-ux-patterns-as-existing-content-management-tabs",
+      "title": "Extend the existing Admin Content Manager page to support creating and deleting Daily Pollution entries, using the same admin-guard behavior and UX patterns as existing content management tabs.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -277,6 +318,58 @@
       "id": "AR-11",
       "summary": "Add NCERT and GCRT textbooks as study material content inside the app",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add a Daily Test Series feature with different subject-wise tests available each day",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add a new backend content model and storage for a \"Daily Test Series\" feature, where each test series entry represents a subject-wise test for a specific calendar day and can be listed publicly without authentication.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Seed the Daily Test Series store with a small, static starter set of entries covering multiple distinct subjects across different days so the feature can be tested end-to-end immediately after deployment.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add daily 'pollution' content/updates to the app (e.g., as a daily item users can browse each day)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add a new backend content model and persistent store for “Daily Pollution” entries, where each entry is tied to a specific calendar day (using the existing numeric day-key approach) and can be listed publicly without authentication.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Implement admin-only write operations for Daily Pollution entries in the backend, using the existing allowlist-based admin authorization rule used for other admin write operations.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Seed the Daily Pollution backend store with a small starter set of entries spanning multiple different days so the feature can be tested end-to-end immediately after deployment.",
+      "reqIds": [
+        "REQ-33"
+      ],
       "status": "pending"
     }
   ],

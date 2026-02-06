@@ -1,27 +1,62 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T12:03:02.880Z",
+  "generatedAt": "2026-02-06T12:49:32.738Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 5,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-25",
-        "summary": "Seed the backend Study Material store with a starter set of NCERT textbooks and GCRT textbooks so they appear in the existing Study Material section without requiring any admin upload.",
+        "id": "REQ-31",
+        "summary": "Add a new backend content model and persistent store for “Daily Pollution” entries, where each entry is tied to a specific calendar day (using the existing numeric day-key approach) and can be listed publicly without authentication.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-32",
+        "summary": "Implement admin-only write operations for Daily Pollution entries in the backend, using the existing allowlist-based admin authorization rule used for other admin write operations.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-33",
+        "summary": "Seed the Daily Pollution backend store with a small starter set of entries spanning multiple different days so the feature can be tested end-to-end immediately after deployment.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-34",
+        "summary": "Add a new public landing-page section named “Daily Pollution” that lets users (including anonymous users) browse pollution entries by day (using the same day selector UX pattern as the existing Daily Test Series section), including loading, error, and empty states.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/StudyMaterialSection.tsx",
-          "frontend/src/components/StudyMaterialSection.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/DailyPollutionSection.tsx",
           "frontend/src/pages/LandingPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/StudyMaterialSection.tsx",
-          "frontend/src/components/StudyMaterialSection.tsx"
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/DailyPollutionSection.tsx",
+          "frontend/src/pages/LandingPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-35",
+        "summary": "Extend the existing Admin Content Manager page to support creating and deleting Daily Pollution entries, using the same admin-guard behavior and UX patterns as existing content management tabs.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/AdminContentManagerPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/AdminContentManagerPage.tsx"
         ]
       }
     ]
@@ -33,7 +68,14 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/StudyMaterialSection.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/DailyPollutionSection.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/AdminContentManagerPage.tsx",
+    "frontend/src/pages/LandingPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
