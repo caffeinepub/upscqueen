@@ -10,7 +10,63 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface _SERVICE {}
+export type ContentType = { 'Course' : null } |
+  { 'VideoLecture' : null } |
+  { 'Book' : null } |
+  { 'Music' : null } |
+  { 'Audio' : null } |
+  { 'PdfBook' : null };
+export interface PreviousYearPaper {
+  'id' : bigint,
+  'url' : string,
+  'subject' : string,
+  'year' : bigint,
+  'examName' : string,
+}
+export interface StudyMaterial {
+  'id' : bigint,
+  'url' : string,
+  'title' : string,
+  'subject' : string,
+  'contentType' : ContentType,
+}
+export interface UserProfile { 'name' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
+export interface _SERVICE {
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addPreviousYearPaper' : ActorMethod<
+    [bigint, string, string, string],
+    bigint
+  >,
+  'addStudyMaterial' : ActorMethod<
+    [string, string, ContentType, string],
+    bigint
+  >,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'deletePreviousYearPaper' : ActorMethod<[bigint], undefined>,
+  'deleteStudyMaterial' : ActorMethod<[bigint], undefined>,
+  'getAllPreviousYearPapers' : ActorMethod<[], Array<PreviousYearPaper>>,
+  'getAllStudyMaterials' : ActorMethod<[], Array<StudyMaterial>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getPreviousYearPaperById' : ActorMethod<[bigint], [] | [PreviousYearPaper]>,
+  'getPreviousYearPapersByExam' : ActorMethod<
+    [string],
+    Array<PreviousYearPaper>
+  >,
+  'getPreviousYearPapersBySubject' : ActorMethod<
+    [string],
+    Array<PreviousYearPaper>
+  >,
+  'getStudyMaterialById' : ActorMethod<[bigint], [] | [StudyMaterial]>,
+  'getStudyMaterialsBySubject' : ActorMethod<[string], Array<StudyMaterial>>,
+  'getStudyMaterialsByType' : ActorMethod<[ContentType], Array<StudyMaterial>>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+}
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
 export declare const idlFactory: IDL.InterfaceFactory;

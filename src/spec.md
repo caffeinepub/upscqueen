@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Add a public “UPSC Previous Year Question Papers” section to the upscQueen landing page with simple browsing structure and quick in-page navigation.
+**Goal:** Populate the existing Study Material section with a starter set of NCERT and GCRT textbook entries without requiring any admin upload.
 
 **Planned changes:**
-- Add a new landing-page section titled “UPSC Previous Year Question Papers” that matches existing spacing, typography, and card/list styling.
-- Display a static, browsable grouping for Prelims (GS Paper I, CSAT) and Mains (Essay, GS I–IV, and at least one Optional placeholder), with each item showing a clear label and a “View / Download” (or similar) affordance that indicates “Coming soon” when no files/links exist.
-- Add a top-of-page (hero/top area) control labeled in English (e.g., “Previous Year Papers”) that scrolls/jumps to the new section.
+- Add backend seed data for Study Material including at least one NCERT textbook item and at least one GCRT textbook item, using a book-like content type and non-empty titles.
+- Ensure seeding runs only when the Study Material store is empty to avoid duplicates on repeated canister starts within the same deployment.
+- Keep all user-facing UI text in English while making the seeded items visible in the existing Study Material section (without login).
 
-**User-visible outcome:** Visitors can navigate from the top of the landing page to a “UPSC Previous Year Question Papers” section and browse Prelims/Mains paper categories with clearly labeled items and “Coming soon” placeholders where content is not yet available.
+**User-visible outcome:** Visitors (not logged in) can open the Landing Page, scroll to Study Material, and see Study Material cards for at least one NCERT textbook and at least one GCRT textbook immediately after deployment.

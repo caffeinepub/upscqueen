@@ -1,13 +1,19 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
-  "summary": "User wants a web app (not Play Store) and requests the deployment/shareable link; app name should be \"upscQueen\".",
+  "projectStateVersion": 17,
+  "summary": "User wants a web app (not Play Store) and requests the deployment/shareable link; app name should be \"upscQueen\". Scope expanded to include a Current Affairs section organized by daily/weekly/monthly/yearly with content available in Gujarati, Hindi, and English, and to add a Study Material section for TAT, TET, UPSC, GPSC, and Class 3 exams with content in Gujarati, Hindi, and English, including old/previous-year papers for those exams. User additionally requested adding specific Study Material content: TAT \"Yuva Upnishad\" material, plus NCERT and GCRT textbooks inside the app.",
   "architectural_notes": [
     "App will be a web app accessible via URL (not a Play Store Android APK).",
-    "User approved adding the provided logo asset into the app branding/UI."
+    "User approved adding the provided logo asset into the app branding/UI.",
+    "Add multilingual content support for Gujarati, Hindi, and English (at least for the Current Affairs section).",
+    "Add a Study Material section with exam-category browsing (TAT, TET, UPSC, GPSC, Class 3) and multilingual content support (Gujarati/Hindi/English).",
+    "Include an 'Old Papers' (previous-year papers) area under Study Material for each exam category (TAT/TET/UPSC/GPSC/Class 3).",
+    "User expects Old Papers and all promised Study Material to be uploaded/populated in the app (not just static sample/demo entries).",
+    "Support adding additional specific materials/textbooks (e.g., NCERT, GCRT, and specific TAT topics like \"Yuva Upnishad\") via the content upload/admin workflow so they are readable in-app."
   ],
   "known_issues": [
-    "Assistant previously failed to process the \"Logo\" request (error message shown) before proceeding later."
+    "Assistant previously failed to process the \"Logo\" request (error message shown) before proceeding later.",
+    "Attempt to add TAT \"Yuva Upnishad\" material failed due to a build error (request not fulfilled)."
   ],
   "isFixRequest": false,
   "existing_features": [
@@ -82,6 +88,126 @@
         "REQ-9"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-new-current-affairs-section-to-the-landing-page-that-is-accessible-without-authentication-and-matches-the-existing-upscqueen-visual-theme",
+      "title": "Add a new “Current Affairs” section to the landing page that is accessible without authentication and matches the existing upscQueen visual theme.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-current-affairs-section-provide-browsing-by-timeframe-with-four-options-daily-weekly-monthly-and-yearly",
+      "title": "In the “Current Affairs” section, provide browsing by timeframe with four options: Daily, Weekly, Monthly, and Yearly.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-current-affairs-section-support-multilingual-content-display-in-three-languages-gujarati-hindi-and-english-with-ui-controls-labeled-in-english",
+      "title": "In the “Current Affairs” section, support multilingual content display in three languages: Gujarati, Hindi, and English, with UI controls labeled in English.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-seed-the-current-affairs-section-with-static-sample-content-for-each-timeframe-daily-weekly-monthly-yearly-in-all-three-languages-gujarati-hindi-english-so-the-browsing-and-language-switching-can-be-tested-end-to-end-without-a-backend",
+      "title": "Seed the “Current Affairs” section with static sample content for each timeframe (Daily/Weekly/Monthly/Yearly) in all three languages (Gujarati/Hindi/English) so the browsing and language switching can be tested end-to-end without a backend.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-study-material-section-to-the-landing-page-that-is-visible-without-authentication-and-matches-the-existing-upscqueen-visual-theme",
+      "title": "Add a new “Study Material” section to the landing page that is visible without authentication and matches the existing upscQueen visual theme.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-study-material-section-provide-browsing-by-exam-category-with-at-least-these-options-tat-tet-upsc-gpsc-and-class-3",
+      "title": "In the Study Material section, provide browsing by exam category with at least these options: TAT, TET, UPSC, GPSC, and Class 3.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-study-material-section-support-multilingual-content-display-in-three-languages-gujarati-hindi-and-english-with-ui-controls-labeled-in-english",
+      "title": "In the Study Material section, support multilingual content display in three languages: Gujarati, Hindi, and English, with UI controls labeled in English.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-seed-the-study-material-section-with-static-sample-content-for-each-exam-category-tat-tet-upsc-gpsc-class-3-in-all-three-languages-gujarati-hindi-english-so-browsing-and-language-switching-can-be-tested-end-to-end-without-a-backend",
+      "title": "Seed the Study Material section with static sample content for each exam category (TAT, TET, UPSC, GPSC, Class 3) in all three languages (Gujarati/Hindi/English) so browsing and language switching can be tested end-to-end without a backend.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-study-material-data-model-to-include-a-separate-browsable-previous-year-papers-dataset-for-each-exam-category-tat-tet-upsc-gpsc-class-3-and-each-language-english-hindi-gujarati-seeded-with-static-sample-entries-so-it-can-be-tested-end-to-end-without-a-backend",
+      "title": "Extend the Study Material data model to include a separate, browsable \"Previous Year Papers\" dataset for each exam category (TAT, TET, UPSC, GPSC, Class 3) and each language (English, Hindi, Gujarati), seeded with static sample entries so it can be tested end-to-end without a backend.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-study-material-section-ui-to-let-users-switch-between-study-material-and-previous-year-papers-within-the-same-section-while-keeping-the-existing-exam-category-tabs-tat-tet-upsc-gpsc-class-3-and-language-selector-english-hindi-gujarati-working-for-both-modes",
+      "title": "Update the Study Material section UI to let users switch between \"Study Material\" and \"Previous Year Papers\" within the same section, while keeping the existing exam-category tabs (TAT/TET/UPSC/GPSC/Class 3) and language selector (English/Hindi/Gujarati) working for both modes.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-for-previous-year-papers-items-shown-in-the-study-material-section-render-each-item-as-a-card-with-a-disabled-download-or-equivalent-action-to-match-the-existing-non-backend-behavior-used-in-the-upsc-previous-year-question-papers-section",
+      "title": "For \"Previous Year Papers\" items shown in the Study Material section, render each item as a card with a disabled \"Download\" (or equivalent) action to match the existing non-backend behavior used in the UPSC Previous Year Question Papers section.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-authenticated-admin-only-ui-that-lets-a-logged-in-user-add-content-entries-for-1-study-material-and-2-previous-year-papers-for-each-exam-category-and-language",
+      "title": "Create an authenticated admin-only UI that lets a logged-in user add content entries for (1) Study Material and (2) Previous Year Papers for each exam category and language.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-public-landing-page-sections-to-load-their-lists-from-the-backend-content-store-using-the-existing-actor-react-query-patterns-and-gracefully-handle-the-empty-state-when-no-items-have-been-uploaded-yet",
+      "title": "Wire the public landing-page sections to load their lists from the backend content store (using the existing actor + React Query patterns) and gracefully handle the empty state when no items have been uploaded yet.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-a-clear-authorization-rule-for-admin-write-operations-only-authenticated-principals-in-an-allowlist-stored-in-the-backend-can-create-delete-content-all-users-including-anonymous-can-read-content",
+      "title": "Define a clear authorization rule for admin write operations: only authenticated principals in an allowlist stored in the backend can create/delete content; all users (including anonymous) can read content.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-seed-the-backend-study-material-store-with-a-starter-set-of-ncert-textbooks-and-gcrt-textbooks-so-they-appear-in-the-existing-study-material-section-without-requiring-any-admin-upload",
+      "title": "Seed the backend Study Material store with a starter set of NCERT textbooks and GCRT textbooks so they appear in the existing Study Material section without requiring any admin upload.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -100,6 +226,56 @@
     {
       "id": "AR-3",
       "summary": "Add UPSC previous year/old question papers section/content inside the upscQueen web app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add a Current Affairs section with browsing by Daily / Weekly / Monthly / Yearly",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Support Current Affairs content in Gujarati, Hindi, and English (multilingual content options)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add a Study Material section covering TAT, TET, UPSC, GPSC, and Class 3 exams with content available in Gujarati, Hindi, and English",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add old/previous-year papers within the Study Material section for TAT, TET, UPSC, GPSC, and Class 3 (with Gujarati/Hindi/English availability as applicable)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Provide a way to upload/add all Old Papers and the full Study Material content into the app (content population beyond static samples)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add a backend content store (in the existing single Motoko actor) to persist Study Material items and Previous Year Papers items instead of relying only on frontend static sample data.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add TAT study material content for \"Yuva Upnishad\" inside the app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add NCERT and GCRT textbooks as study material content inside the app",
       "reqIds": [],
       "status": "pending"
     }

@@ -1,9 +1,15 @@
-import { BookOpen, Target, TrendingUp, Users, FileText } from 'lucide-react';
+import { BookOpen, Target, TrendingUp, Users, FileText, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from '@tanstack/react-router';
 import ShareThisApp from '@/components/ShareThisApp';
 import PreviousYearPapersSection from '@/components/PreviousYearPapersSection';
+import CurrentAffairsSection from '@/components/CurrentAffairsSection';
+import StudyMaterialSection from '@/components/StudyMaterialSection';
+import LoginButton from '@/components/LoginButton';
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
   const scrollToPapers = () => {
     const element = document.getElementById('previous-papers');
     if (element) {
@@ -15,13 +21,27 @@ export default function LandingPage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center gap-3">
-          <img 
-            src="/assets/generated/upscqueen-logo.dim_512x512.png" 
-            alt="upscQueen Logo" 
-            className="h-10 w-10 sm:h-12 sm:w-12"
-          />
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground">upscQueen</h1>
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img 
+              src="/assets/generated/upscqueen-logo.dim_512x512.png" 
+              alt="upscQueen Logo" 
+              className="h-10 w-10 sm:h-12 sm:w-12"
+            />
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">upscQueen</h1>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate({ to: '/admin' })}
+              className="gap-2"
+            >
+              <Shield className="h-4 w-4" />
+              <span className="hidden sm:inline">Admin</span>
+            </Button>
+            <LoginButton />
+          </div>
         </div>
       </header>
 
@@ -138,6 +158,12 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Current Affairs Section */}
+      <CurrentAffairsSection />
+
+      {/* Study Material Section */}
+      <StudyMaterialSection />
 
       {/* Previous Year Papers Section */}
       <PreviousYearPapersSection />

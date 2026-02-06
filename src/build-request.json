@@ -1,71 +1,37 @@
 {
   "kind": "build_request",
-  "title": "Add a UPSC Previous Year Question Papers section to the upscQueen web app",
+  "title": "Add NCERT and GCRT textbooks as in-app Study Material content",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-7",
-      "text": "Add a new section on the upscQueen landing page for “UPSC Previous Year Question Papers” that is visible without authentication and fits the existing visual theme.",
-      "target": "frontend",
+      "id": "REQ-25",
+      "text": "Seed the backend Study Material store with a starter set of NCERT textbooks and GCRT textbooks so they appear in the existing Study Material section without requiring any admin upload.",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-6"
         ],
         "quotes": [
-          "Tame old pepar andar nakhi deso UPSC na"
+          "NCERT તથા જીસીઆરટીના પાઠ્યપુસ્તક અંદર એડ કરો"
         ]
       },
       "acceptanceCriteria": [
-        "Landing page includes a clearly titled section: “UPSC Previous Year Question Papers”.",
-        "All user-facing text in the new section is in English.",
-        "The new section follows existing spacing/typography/card styles used elsewhere on the landing page."
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "In the “UPSC Previous Year Question Papers” section, display a simple, browsable structure (static content is acceptable) that covers at minimum: Prelims (GS Paper I, CSAT) and Mains (Essay, GS I–IV, at least one Optional placeholder).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Tame old pepar andar nakhi deso UPSC na"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The section shows grouped entries for Prelims and Mains.",
-        "Each group contains multiple items (e.g., cards or list rows) with a clear label (e.g., “Prelims GS Paper I”, “CSAT”, “Mains GS I”).",
-        "Items have an obvious affordance for future paper access (e.g., a “View / Download” button or link); if no real files/links exist yet, the UI must clearly indicate “Coming soon” (or equivalent) rather than linking to a broken URL."
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "text": "Add an in-page navigation affordance from the top of the landing page to the “UPSC Previous Year Question Papers” section (e.g., a button/link that scrolls to the section).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Tame old pepar andar nakhi deso UPSC na"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A user can click a control near the top/hero area and be scrolled/jumped to the “UPSC Previous Year Question Papers” section.",
-        "The control label is in English and is understandable (e.g., “Previous Year Papers”)."
+        "After deployment, opening the Landing Page and scrolling to the Study Material section shows at least one NCERT textbook item and at least one GCRT textbook item (as Study Material cards), without needing to log in.",
+        "NCERT textbook items are stored as Study Material entries in the backend with ContentType set to a book-like type (e.g., PdfBook/Book) and a non-empty title.",
+        "GCRT textbook items are stored as Study Material entries in the backend with ContentType set to a book-like type (e.g., PdfBook/Book) and a non-empty title.",
+        "Seed logic does not create duplicate entries on repeated canister starts within the same running deployment (e.g., only seeds when the store is empty).",
+        "All user-facing text in the UI remains in English."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT.",
-    "Keep all user-facing text in English.",
-    "Do not introduce blue+purple as the primary theme colors (must remain consistent with the existing warm academic palette)."
+    "Backend must remain a single Motoko actor in backend/main.mo.",
+    "Do not edit any files under frontend/src/components/ui or other frontend immutablePaths listed in SYSTEM_CONTEXT.",
+    "Only Internet Identity is used for authentication; do not add third-party auth providers."
   ],
   "nonGoals": [
-    "Do not scrape or fetch papers from third-party websites.",
-    "Do not require users to log in to view the section.",
-    "Do not implement PDF hosting/upload or a full backend-managed papers database in this change unless the user provides paper files/links and explicitly requests backend management."
+    "Do not implement actual PDF hosting, file uploads, or an in-app PDF reader in this change (links can remain placeholders if real URLs are not provided).",
+    "Do not redesign the Study Material taxonomy (exam/language tabs) unless required to make seeded items visible."
   ],
   "imageRequirements": {
     "required": [],

@@ -8,10 +8,190 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+export const ContentType = IDL.Variant({
+  'Course' : IDL.Null,
+  'VideoLecture' : IDL.Null,
+  'Book' : IDL.Null,
+  'Music' : IDL.Null,
+  'Audio' : IDL.Null,
+  'PdfBook' : IDL.Null,
+});
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
+export const PreviousYearPaper = IDL.Record({
+  'id' : IDL.Nat,
+  'url' : IDL.Text,
+  'subject' : IDL.Text,
+  'year' : IDL.Nat,
+  'examName' : IDL.Text,
+});
+export const StudyMaterial = IDL.Record({
+  'id' : IDL.Nat,
+  'url' : IDL.Text,
+  'title' : IDL.Text,
+  'subject' : IDL.Text,
+  'contentType' : ContentType,
+});
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+
+export const idlService = IDL.Service({
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addPreviousYearPaper' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Nat],
+      [],
+    ),
+  'addStudyMaterial' : IDL.Func(
+      [IDL.Text, IDL.Text, ContentType, IDL.Text],
+      [IDL.Nat],
+      [],
+    ),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'deletePreviousYearPaper' : IDL.Func([IDL.Nat], [], []),
+  'deleteStudyMaterial' : IDL.Func([IDL.Nat], [], []),
+  'getAllPreviousYearPapers' : IDL.Func(
+      [],
+      [IDL.Vec(PreviousYearPaper)],
+      ['query'],
+    ),
+  'getAllStudyMaterials' : IDL.Func([], [IDL.Vec(StudyMaterial)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getPreviousYearPaperById' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Opt(PreviousYearPaper)],
+      ['query'],
+    ),
+  'getPreviousYearPapersByExam' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(PreviousYearPaper)],
+      ['query'],
+    ),
+  'getPreviousYearPapersBySubject' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(PreviousYearPaper)],
+      ['query'],
+    ),
+  'getStudyMaterialById' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Opt(StudyMaterial)],
+      ['query'],
+    ),
+  'getStudyMaterialsBySubject' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(StudyMaterial)],
+      ['query'],
+    ),
+  'getStudyMaterialsByType' : IDL.Func(
+      [ContentType],
+      [IDL.Vec(StudyMaterial)],
+      ['query'],
+    ),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const ContentType = IDL.Variant({
+    'Course' : IDL.Null,
+    'VideoLecture' : IDL.Null,
+    'Book' : IDL.Null,
+    'Music' : IDL.Null,
+    'Audio' : IDL.Null,
+    'PdfBook' : IDL.Null,
+  });
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
+  const PreviousYearPaper = IDL.Record({
+    'id' : IDL.Nat,
+    'url' : IDL.Text,
+    'subject' : IDL.Text,
+    'year' : IDL.Nat,
+    'examName' : IDL.Text,
+  });
+  const StudyMaterial = IDL.Record({
+    'id' : IDL.Nat,
+    'url' : IDL.Text,
+    'title' : IDL.Text,
+    'subject' : IDL.Text,
+    'contentType' : ContentType,
+  });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  
+  return IDL.Service({
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addPreviousYearPaper' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Nat],
+        [],
+      ),
+    'addStudyMaterial' : IDL.Func(
+        [IDL.Text, IDL.Text, ContentType, IDL.Text],
+        [IDL.Nat],
+        [],
+      ),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'deletePreviousYearPaper' : IDL.Func([IDL.Nat], [], []),
+    'deleteStudyMaterial' : IDL.Func([IDL.Nat], [], []),
+    'getAllPreviousYearPapers' : IDL.Func(
+        [],
+        [IDL.Vec(PreviousYearPaper)],
+        ['query'],
+      ),
+    'getAllStudyMaterials' : IDL.Func([], [IDL.Vec(StudyMaterial)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getPreviousYearPaperById' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Opt(PreviousYearPaper)],
+        ['query'],
+      ),
+    'getPreviousYearPapersByExam' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(PreviousYearPaper)],
+        ['query'],
+      ),
+    'getPreviousYearPapersBySubject' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(PreviousYearPaper)],
+        ['query'],
+      ),
+    'getStudyMaterialById' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Opt(StudyMaterial)],
+        ['query'],
+      ),
+    'getStudyMaterialsBySubject' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(StudyMaterial)],
+        ['query'],
+      ),
+    'getStudyMaterialsByType' : IDL.Func(
+        [ContentType],
+        [IDL.Vec(StudyMaterial)],
+        ['query'],
+      ),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };
